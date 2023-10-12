@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Форма ввода текста</title>
+    <style>
+        input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Введите текст:</h2>
+
+<p>Анализ торсионного контраста символьной части текста без учёта смысловой нагрузки. Построен по таблице данных, полученных в результате лабораторных исследований торсиметром В.Т. Шкатова ТСМ-021</p>
+<p>Воспринимаются только символы кирилицы.Знаки препинания и иностранный алфавит игнорируются</p>
+
+<form oninput="updateOutput()">
+    <label for="text">Текст:</label>
+    <input type="text" id="text" name="text">
+    <input type="submit" value="Отправить">
+    <button type="button" onclick="clearForm()">Очистить</button>
+</form> 
+
+<div id="result"></div>
+
+ <!--<button type="button" onclick="clearForm()">Очистить</button>-->
+
+<script>
+  function updateOutput() {
+    var inputText = document.getElementById('text').value.toUpperCase();
+    var lettersArray = inputText.split('');
+    var letterCounts = {};
+
+    lettersArray.forEach(function(letter) {
+      if (letterCounts.hasOwnProperty(letter)) {
+        letterCounts[letter] += 1;
+      } else {
+        letterCounts[letter] = 1;
+      }
+    });
+
+    var totalCount = 0;
+    var output = '';
+    var symbolica = '';
+
+    // Формируем строку вывода
+    for (var letter in letterCounts) {
+      if (letterCounts.hasOwnProperty(letter)) {
+        var count = letterCounts[letter];
+        var value = 0;
+
+        // Определяем числовое значение буквы
+        switch (letter) {
+          case 'А':
+          case 'Ф':
+            value = -3;
+            break;
+          case 'К':
+          case 'М':
+          case 'Н':
+          case 'П':
+          case 'У':
+          case 'Ю':
+            value = -2;
+            break;
+          case 'Г':
+          case 'Е':
+          case 'И':
+          case 'Л':
+            value = -1;
+            break;
+          case 'Б':
+          case 'Р':
+          case 'Ь':
+          case 'Щ':
+          case 'Я':
+            value = 0;
+            break;
+          case 'Д':
+          case 'Ц':
+          case 'Ш':
+          case 'Э':
+            value = 1;
+            break;
+          case 'Т':
+          case 'Х':
+          case 'Ъ':
+          case 'Ы':
+          case 'Й':
+            value = 2;
+            break;
+          case 'Ё':
+          case 'Ж':
+          case 'З':
+            value = 3;
+            break;
+          case 'В':
+          case 'Ч':
+            value = 4;
+            break;
+          case 'С':
+            value = 5;
+            break;
+          case 'О':
+            value = 6;
+            break;
+        }
+
+        totalCount += value * count;
+        output += '"' + letter + '" - ' + count + ' раз: ' + (value * count) + ',<br> ';
+      }
+    }
+
+    // Определяем символику
+    if (totalCount > 0) {
+        symbolica = 'имеет правый спин';
+    } else if (totalCount < 0) {
+        symbolica = 'имеет левый спин';
+    } else {
+        symbolica = 'нейтральна';
+    }
+
+    // Обновляем вывод
+    document.getElementById('result').innerHTML = output + 'Суммарный подсчет числовых значений всех букв: ' + totalCount + '<br>';
+    document.getElementById('result').innerHTML += 'Буквенная символика текста: ' + symbolica;
+  }
+
+  function clearForm() {
+    document.getElementById('text').value = '';
+    document.getElementById('result').innerHTML = '';
+  }
+</script>
+
+</body>
+  </html
