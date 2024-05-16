@@ -9,18 +9,28 @@
             padding: 8px;
             margin-bottom: 10px;
         }
-        p, div, button {
+        p, div {
             font-size: 12px;
+        }
+        button {
+                padding: 5px 10px;
+                border-radius: 5px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+                width: 100%;
+                border: 1px solid #aaa;
         }
     </style>
 </head>
 <body>
-
+<button onclick="window.location.href = 'https://meweryk.github.io/Wave-of-land/index.html';">Частоты планет</button>
+<button onclick="window.location.href = 'https://meweryk.github.io/Wave-of-land/spectr.html';">Частоты трезвучий</button>
 <h2>Введите текст:</h2>
 
 <p>Анализ торсионного контраста символьной части текста без учёта смысловой нагрузки. Построен по таблице данных, полученных в результате лабораторных исследований торсиметром В.Т. Шкатова ТСМ-021</p>
 <p>Воспринимаются только символы кирилицы.Знаки препинания и иностранный алфавит игнорируются</p>
-<button onclick="window.location.href = 'https://meweryk.github.io/Wave-of-land/index.html';">Частоты планет</button>
+
 <form oninput="updateOutput()">
     <label for="text">Текст:</label>
     <input type="text" id="text" name="text">
